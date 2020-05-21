@@ -1,4 +1,4 @@
 import numpy as np
 
-for i in arange(10):
+for i in np.arange(10):
 	print('yeet')
