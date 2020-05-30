@@ -7,9 +7,9 @@ incorrect data-types, or do not follow printed instructions.
 Parker's Python Pals
 OCEAN 506
 """
-
+import sys
 #Creating the prompt for the user to know which number corresponds to whcich site
-print("Hello, please specify the river location you would like to view.")
+print("\n\n\nHello, please specify the river location you would like to view.")
 print("Please enter the number of one the following options into the prompt at the bottom of the list:\n")
 print("1 = Yakima River")
 print("2 = Skagit River at Marbelmount")
@@ -17,7 +17,7 @@ print("3 = Skagit River at Mount Vernon")
 print("4 = Skykomish River")
 print("5 = Sultan River")
 print("6 = Middle Fork Snoqualmie River")
-print("7 = Middle Fork Snoqualmie River\n")
+print("7 = Stehekin River\n")
 #Defining Varibales
 RCode=1
 WCode=1
@@ -61,7 +61,7 @@ while good_input==False and counter<10:
                 elif user_input == 7:
                     RCode = 12451000
                     WCode = 458059
-                    print("\nYou've chosen Middle Fork Snoqualmie River!")
+                    print("\nYou've chosen Stehekin River!")
 
             else:
                 print("\nYour Entry Was Not Recognized\nPlease enter a single number from 1-7 corresponding to the river of interst.")
@@ -73,10 +73,11 @@ while good_input==False and counter<10:
 #More error handling, automatically terminates process if input was incorrect after 10 attempts
 while good_input==False and counter>=10:
     print('\n\n\nYour entry was incorrect too many times. PROCESS TERMINATING.')
-    print('Please re-run command when ready, and follow printed instructions.')
     RCode=None
     WCode=None
-    break
+    sys.exit('Please re-run command when ready, and follow printed instructions.')
+
+
 
 counter2=0
 good_input=False
@@ -93,15 +94,14 @@ while good_input==False and counter2 < 5:
     except ValueError:
         print('\nPlease enter a valid input, following the pinted instructions')
         counter2+=1
-        work=False
+
 
 while good_input==False and counter2>=5:
     print('\n\n\nYour entry was incorrect too many times. PROCESS TERMINATING.')
-    print('Please re-run command when ready, and follow printed instructions.')
     RCode=None
     WCode=None
     days=None
-    break
+    sys.exit('Please re-run command when ready, and follow printed instructions.')
 
 
 #Making the codes strings to insert into url in later section.
