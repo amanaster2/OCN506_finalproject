@@ -33,35 +33,35 @@ while good_input==False and counter<10:
                 if user_input == 1: #If/when a correct value (within the given range) is given, correct variables will be set.
                     RCode = 12484500
                     WCode = 452505
-                    print ("\nYou've chosen Yakima River! Data is being gathered.")
+                    print ("\nYou've chosen Yakima River!")
                 elif user_input == 2:
                     RCode = 12181000
                     WCode = 24281 #Seattle Weather Data, see note in print statement
-                    print ("\nYou've chosen Skagit River at Marbelmount! Data is being gathered.")
+                    print ("\nYou've chosen Skagit River at Marbelmount")
                     print ("NOTE: Specific Weather Data Unavailable, showing weather data from Seattle, WA.")
                 elif user_input == 3:
                     RCode = 12200500
                     WCode = 450986
-                    print ("\nYou've chosen Skagit River at Mount Vernon! Data is being gathered.")
+                    print ("\nYou've chosen Skagit River at Mount Vernon! ")
                 elif user_input == 4:
                     RCode = 12134500
                     WCode = 24281 #Seattle Weather Data, see note in print statement
-                    print("\nYou've chosen Skykomish River! Data is being gathered.")
+                    print("\nYou've chosen Skykomish River!")
                     print ("NOTE: Specific Weather Data Unavailable, showing weather data from Seattle, WA.")
                 elif user_input == 5:
                     RCode = 12137800
                     WCode = 24281 #Seattle Weather Data, see note in print statement
-                    print("\nYou've chosen Sultan River! Data is being gathered.")
+                    print("\nYou've chosen Sultan River!")
                     rint ("NOTE: Specific Weather Data Unavailable, showing weather data from Seattle, WA.")
                 elif user_input == 6:
                     RCode = 12142000
                     WCode = 24281 #Seattle Weather Data, see note in print statement
-                    print("\nYou've chosen Middle Fork Snoqualmie River! Data is being gathered.")
+                    print("\nYou've chosen Middle Fork Snoqualmie River!")
                     print ("NOTE: Specific Weather Data Unavailable, showing weather data from Seattle, WA.")
                 elif user_input == 7:
                     RCode = 12451000
                     WCode = 458059
-                    print("\nYou've chosen Middle Fork Snoqualmie River! Data is being gathered.")
+                    print("\nYou've chosen Middle Fork Snoqualmie River!")
 
             else:
                 print("\nYour Entry Was Not Recognized\nPlease enter a single number from 1-7 corresponding to the river of interst.")
@@ -77,6 +77,34 @@ while good_input==False and counter>=10:
     RCode=None
     WCode=None
     break
+
+counter2=0
+good_input=False
+while good_input==False and counter2 < 5:
+    try:
+        print('\n\nPlease indicate how many past days you would like to view data for (1-60)')
+        days=int(input('How many whole days record do you want to plot: '))
+        if days>0 and days<61:
+            good_input = True
+            print('\n\nThank you for your selections, we are gathering your data!')
+        else:
+            print("\nYour Entry Was Not Recognized\nPlease enter a single number from 1-60.")
+            counter +=1
+    except ValueError:
+        print('\nPlease enter a valid input, following the pinted instructions')
+        counter2+=1
+        work=False
+
+while good_input==False and counter2>=5:
+    print('\n\n\nYour entry was incorrect too many times. PROCESS TERMINATING.')
+    print('Please re-run command when ready, and follow printed instructions.')
+    RCode=None
+    WCode=None
+    days=None
+    break
+
+
 #Making the codes strings to insert into url in later section.
 WCode = str(WCode)
 RCode = str(RCode)
+TDelta = int(days)
