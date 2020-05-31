@@ -2,6 +2,8 @@ import requests
 from datetime import datetime, timedelta
 import xml.etree.ElementTree as ET
 import pandas as pd
+import bs4
+import matplotlib.pyplot as plt
 
 # set query parameters
 name = 'yakima'
@@ -14,18 +16,12 @@ time_str = ('&startDT=' + t0.strftime('%Y-%m-%d')
 # Form the url.
 url_str = ('http://waterservices.usgs.gov/nwis/iv/'
     + '?format=waterml,1.1&sites=' + str(usgs_code)
-    + time_str + '&parameterCd=00065')
-# I looked here:
-# https://waterdata.usgs.gov/usa/nwis/uv?site_no=12200500
-# to find out the codes for the parameters (00060 = flow)
-#
+    + time_str + '&parameterCd=00060')
+
 # here is the resulting url_str
 """
 http://waterservices.usgs.gov/nwis/dv/?format=waterml,1.1&sites=12200500&startDT=2020-05-01&endDT=2020-05-10&parameterCd=00060
 """
-# if you look at this address in the Chrome browser (and maybe others) you can see the XML,
-# and for testing purposes I also saved it as a .xml file in my _data folder.
-
 # Get the XML to parse:
 if True:
     # use this to get it from the web
@@ -125,3 +121,49 @@ A final comment: since all XML files are different you have to look at them in a
 browser or by parsing to the screen first in order to find the right ways to get
 what you are looking for.
 """
+
+# EXAMPLE 1: NDBC buoy data - historical for one year
+
+# Resources
+# https://www.ndbc.noaa.gov/
+# https://www.ndbc.noaa.gov/download_data.php?filename=46029h2018.txt.gz&dir=data/historical/stdmet/
+
+# station and year
+ncei_sn = 24220 # Ellensburg
+ncei_year = 2018
+
+# get the data as a text file 
+try:
+    # form the url string for the request
+    idn = str(ncei_sn) + 'h' + str(ncei_year)
+    wunderground_url = ('https://www.wunderground.com/history/daily/KYKM/date/2020-5-29')
+           
+    # get the request and do some parsing
+    page = requests.get(wunderground_url)
+    soup = bs4.BeautifulSoup(page.content, 'html.parser')
+    table = soup.find(id='inner-wrap')
+    obs = table.find_all(class_="small-12 columns has-sidebar")
+
+    # some munging required
+    sns = str(sn_text)[2:-2] # get rid of [' at start and '] at end
+    sns = sns.replace('\\n','\n') # replace odd line feeds with real ones
+
+    # write data to a text file
+    ndbc_fn = out_dir + 'ndbc_' + idn + '.txt'
+    f = open(ndbc_fn,'w')
+    f.write(sns)
+    f.close()
+
+    print(' Retrieved ' + idn)
+except:
+    print(' -- Failed ' + idn)
+    pass
+
+# parse the text file into a pandas DataFrame
+ndbc_df = pd.read_csv(ndbc_fn, delim_whitespace=True, index_col='date',
+         skiprows=[1],
+         parse_dates={'date':[0, 1, 2, 3, 4]}, # the columns containing time info
+         date_parser=lambda x: datetime.strptime(x, '%Y %m %d %H %M'))
+
+# plot one column
+ndbc_df[['WSPD']].plot()
