@@ -45,7 +45,7 @@ def get_river(station, date_start, date_end):
 		dates_stage.append([item['dateTime'] for item in stage_dict])
 		#Get flow values
 		q.append([item['value'] for item in q_dict])
-		#Get date corresponding to max temperature values
+		#Get date corresponding to flow values
 		dates_q.append([item['dateTime'] for item in q_dict])
 
 	return(station_id, stage, dates_stage, q, dates_q, d_stage, d_q)
