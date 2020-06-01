@@ -52,7 +52,7 @@ def input_func():
 						RCode = 12137800
 						WCode = 'GHCND:US1WASN0064'
 						print("\nYou've chosen Sultan River!")
-						rint ("\nNOTE: Temperature Data Unavailable At This Location")
+						print ("\nNOTE: Temperature Data Unavailable At This Location")
 					elif user_input == 6:
 						RCode = 12142000
 						WCode = 'GHCND:USC00457773'
@@ -63,7 +63,7 @@ def input_func():
 						print("\nYou've chosen Stehekin River!")
 
 				else:
-					print("\nYour Entry Was Not Recognized\nPlease enter a single number from 1-7 corresponding to the river of interst.")
+					print("\nYour Entry Was Not Recognized\nPlease enter a single number from 1-7 corresponding to the river of interest.")
 					counter +=1
 	#More error handling, prevents red-error if input data-type is incorrect.
 			except ValueError:
@@ -82,7 +82,7 @@ def input_func():
 	good_input=False
 	while good_input==False and counter2 < 5:
 		try:
-			print('\n\nPlease indicate how many past days you would like to view data for (1-60)')
+			print('\n\nPlease indicate how many days of available data you would like to view (1-60)')
 			days=int(input('How many whole days record do you want to plot: '))
 			if days>0 and days<61:
 				good_input = True
@@ -109,4 +109,4 @@ def input_func():
 	TDelta = int(days)
 	return(WCode, RCode, TDelta)
 
-WCode, RCode, TDelta = input_func()
+#WCode, RCode, TDelta = input_func()

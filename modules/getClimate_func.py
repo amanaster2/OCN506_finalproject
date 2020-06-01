@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import json
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timedelta
 
 Token = 'sFnzvgMvjWEXBVsssompToJFuwsVrEGt'
 
@@ -26,7 +26,7 @@ def get_climate(station, date_start, date_end):
 
 			#Call API
 			r = requests.get('https://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&datatypeid=PRCP,TMAX&stationid=' +
-				idn + '&startdate=' + date_start + '&enddate=' + date_end, headers={'token':Token})
+				idn + '&startdate=' + date_start + '&enddate=' + date_end+ '&limit=60', headers={'token':Token})
 
 			#Load API response as JSON
 			d = json.loads(r.text)
@@ -52,4 +52,4 @@ def get_climate(station, date_start, date_end):
 
 
 #Example function call for two sites
-idn, precip, p_date, temp, t_date = get_climate(['GHCND:USW00024220','GHCND:USC00458034'], '2020-05-01', '2020-05-10')
+# idnW, precip, p_date, temp, t_date, r, d = get_climate(['GHCND:USW00024220'], str(datetime.now()-timedelta(30)), str(datetime.now()))
