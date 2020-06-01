@@ -51,12 +51,12 @@ def get_river(station, date_start, date_end):
 	return(station_id, stage, dates_stage, q, dates_q, d_stage, d_q)
 
 #Example function call for one site
-idn, depth, d_date, q, q_date, d_s, d_q = get_river(['12484500'], '2020-05-27', '2020-05-31')
+#idn, depth, d_date, q, q_date, d_s, d_q = get_river(['12484500'], '2020-05-27', '2020-05-31')
 
-plt.figure(1)
-plt.plot(q_date[0], q[0])
-plt.show()
+# plt.figure(1)
+# plt.plot(q_date[0], q[0])
+# plt.show()
 
-plt.figure(2)
-plt.plot(d_date[0], depth[0])
-plt.show()
+# plt.figure(2)
+# plt.plot(d_date[0], depth[0])
+# plt.show()
