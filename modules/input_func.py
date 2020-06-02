@@ -12,13 +12,13 @@ def input_func():
 	#Creating the prompt for the user to know which number corresponds to whcich site
 	print("\n\n\nHello, please specify the river location you would like to view.")
 	print("Please enter the number of one the following options into the prompt at the bottom of the list:\n")
-	print("1 = Yakima River")
-	print("2 = Skagit River at Marbelmount")
-	print("3 = Skagit River at Mount Vernon")
-	print("4 = Skykomish River")
-	print("5 = Sultan River")
-	print("6 = Middle Fork Snoqualmie River")
-	print("7 = Stehekin River\n")
+	print("     1 = Yakima River")
+	print("     2 = Skagit River at Marbelmount")
+	print("     3 = Skagit River at Mount Vernon")
+	print("     4 = Skykomish River")
+	print("     5 = Sultan River")
+	print("     6 = Middle Fork Snoqualmie River")
+	print("     7 = Stehekin River\n")
 	#Defining Varibales
 	RCode=1
 	WCode=1
@@ -86,7 +86,7 @@ def input_func():
 			days=int(input('How many whole days record do you want to plot: '))
 			if days>0 and days<61:
 				good_input = True
-				print('\n\nThank you for your selections, we are gathering your data!')
+				print('\n\nThank you for your selections, we are gathering your data!\n\n')
 			else:
 				print("\nYour Entry Was Not Recognized\nPlease enter a single number from 1-60.")
 				counter +=1
