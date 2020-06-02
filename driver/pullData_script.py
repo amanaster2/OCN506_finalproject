@@ -28,10 +28,14 @@ dfriver['f_date'] = pd.to_datetime(q_date[0])
 #dfriver = dfriver.resample('D').mean()
 
 t_flag=False
+p_flag=False
 dfweather =pd.DataFrame(index=pd.to_datetime(p_date[0])) 
 #dfweather.index.tz_convert(None)
-dfweather['precip'] = pd.to_numeric(precip[0]) if len(precip[0]) == len(dfweather) else np.empty(len(dfweather))
-dfweather['p_date'] = pd.to_datetime(p_date[0]) if len(p_date[0]) == len(dfweather) else np.empty(len(dfweather))
+if len(precip) != 0:
+	dfweather['precip'] = pd.to_numeric(precip[0]) if len(precip[0]) == len(dfweather) else np.empty(len(dfweather))
+	p_flag=True
+if len(p_date) != 0:
+	dfweather['p_date'] = pd.to_datetime(p_date[0]) if len(p_date[0]) == len(dfweather) else np.empty(len(dfweather))
 if len(temp) != 0:
 	dfweather['temp'] = pd.to_numeric(temp[0]) if len(temp[0]) == len(dfweather) else np.empty(len(dfweather))
 	dfweather.temp = dfweather.temp -273.15 #convert to celsius from kelvin
@@ -49,8 +53,9 @@ if len(dfriver.height) > 0 :
 	plt.title('River Height at %s' %rivname)
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('River Height (ft)', fontsize=14, fontweight='bold')
+	plt.tight_layout()
 	#plt.savefig('Height')
-	print('\nTodays height:',dfriver.height[len(dfriver.height)-1],'ft')
+	print('\nToday\'s height:',dfriver.height[len(dfriver.height)-1],'ft')
 else:
 	print('\nNo river height available')
 	
@@ -61,18 +66,21 @@ if len(dfriver.flow) > 0 :
 	dfriver.plot(y='flow')
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('River Flow (cfs)', fontsize=14, fontweight='bold')
-	print('\nTodays flow:',dfriver.flow[len(dfriver.flow)-1],'cfs')
+	plt.tight_layout()
+	print('\nToday\'s flow:',dfriver.flow[len(dfriver.flow)-1],'cfs')
 else: 
 	print('\nNo river flow available')
 	
 
 #plot precipitation 
-if len(dfweather.precip) > 0 :
+if p_flag==True:
 	#make plot 
 	dfweather.plot.bar(y='precip')
+	plt.xticks(rotation=0)
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('Preciitation (mm)', fontsize=14, fontweight='bold')
-	print('\nTodays precipitation:',dfweather.precip[len(dfweather.precip)-1],'mm')
+	plt.tight_layout()
+	print('\nMost recent precipitation:',dfweather.precip[len(dfweather.precip)-1],'mm')
 else:
 	print('\nNo precipitation available')
 	  
@@ -83,7 +91,8 @@ if t_flag==True:
 	dfweather.plot(y='temp') 
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('Temperature (C)', fontsize=14, fontweight='bold')
-	print('\nTodays maximum temperature:',dfweather.temp[len(dfweather.temp)-1],'C')
+	plt.tight_layout()
+	print('\nToday\'s maximum temperature:',dfweather.temp[len(dfweather.temp)-1],'C')
 else: 
 	print('\nNo temperature available')
 	  
