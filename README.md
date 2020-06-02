@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-# OCN506_finalproject
-Final project for OCN 506 at the University of Washington
-=======
 # Washington State River and Climate Data
 This repository was created for the final project in OCN 506 at the University of Washington.
 
@@ -27,4 +23,3 @@ This folder will be used to hold output from pullData_script.py including plots 
 
 ## How to Use
 To use this program, run `pullData_script.py`. This script will prompt the user for input then will produce the desired data and plots.
->>>>>>> Stashed changes
