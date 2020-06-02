@@ -52,19 +52,25 @@ def get_climate(station, date_start, date_end):
 				continue
 
 		#Get precipitation values
-		prcp.append([item['value'] for item in prcp_dict])
+		if len(prcp_dict) == 0:
+			print('There is no rainfall data for the time period specified\n')
+		else:
+			prcp.append([item['value'] for item in prcp_dict])
 		#Get date corresponding to precipiation values
 		dates_prcp.append([item['date'] for item in prcp_dict])
 		#Get max temperature values
-		max_temp.append([item['value'] for item in max_temp_dict])
+		if len(max_temp_dict) == 0:
+			print('There is no temperature data for the time period specified\n')
+		else:
+			max_temp.append([item['value'] for item in max_temp_dict])
 		#Get date corresponding to max temperature values
 		dates_temp.append([item['date'] for item in max_temp_dict])
 
-	return(station_id, prcp, dates_prcp, max_temp, dates_temp)
+	return(station_id, prcp, dates_prcp, max_temp, dates_temp, max_temp_dict)
 
 
 #Example function call for two sites
-# idnW, precip, p_date, temp, t_date,d = get_climate(['GHCND:USW00024220'], (datetime.now()-timedelta(25)).strftime("%Y-%m-%d"), (datetime.now()).strftime("%Y-%m-%d"))
+#idnW, precip, p_date, temp, t_date,d = get_climate(['GHCND:US1WASG0024'], (datetime.now()-timedelta(5)).strftime("%Y-%m-%d"), (datetime.now()).strftime("%Y-%m-%d"))
 # json = json.dumps(d, indent=4)
 # f = open("dict.json","w")
 # f.write(json)
