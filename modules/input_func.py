@@ -22,6 +22,7 @@ def input_func():
 	#Defining Varibales
 	RCode=1
 	WCode=1
+	rivname='blank'
 	good_values=[1,2,3,4,5,6,7]
 	good_input=False
 	counter=0
@@ -34,32 +35,39 @@ def input_func():
 					if user_input == 1: #If/when a correct value (within the given range) is given, correct variables will be set.
 						RCode = 12484500
 						WCode = 'GHCND:USW00024220'
+						rivname = 'Yakima River'
 						print ("\nYou've chosen Yakima River!")
 					elif user_input == 2:
 						RCode = 12181000
 						WCode = 'GHCND:USW00004223'
+						rivname = 'Skagit River at Marbelmount'
 						print ("\nYou've chosen Skagit River at Marbelmount!")
 					elif user_input == 3:
 						RCode = 12200500
 						WCode = 'GHCND:US1WASG0024'
+						rivname = 'Skagit River at Mount Vernon'
 						print ("\nYou've chosen Skagit River at Mount Vernon!")
 						print("\nNOTE: Temperature Data Unavailable At This Location")
 					elif user_input == 4:
 						RCode = 12134500
 						WCode = 'GHCND:USC00458034'
+						rivname = 'Skykomish River'
 						print("\nYou've chosen Skykomish River!")
 					elif user_input == 5:
 						RCode = 12137800
 						WCode = 'GHCND:US1WASN0064'
+						rivname = 'Sultan River'
 						print("\nYou've chosen Sultan River!")
 						print ("\nNOTE: Temperature Data Unavailable At This Location")
 					elif user_input == 6:
 						RCode = 12142000
 						WCode = 'GHCND:USC00457773'
+						rivname = 'Middle Fork Snoqualmie River'
 						print("\nYou've chosen Middle Fork Snoqualmie River!")
 					elif user_input == 7:
 						RCode = 12451000
 						WCode = 'GHCND:USC00458059'
+						rivname = 'Stehekin River'
 						print("\nYou've chosen Stehekin River!")
 
 				else:
@@ -107,6 +115,7 @@ def input_func():
 	WCode = str(WCode)
 	RCode = str(RCode)
 	TDelta = int(days)
-	return(WCode, RCode, TDelta)
+	rivname = str(rivname)
+	return(WCode, RCode, TDelta, rivname)
 
 #WCode, RCode, TDelta = input_func()
