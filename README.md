@@ -23,7 +23,7 @@ This folder contains one script: `pullData_script.py`. This script calls on the 
 This folder will be used to hold output from pullData_script.py including plots saved as .png files and the data saved as a .pkl file.
 
 ## How to Use
-To use this program, run `pullData_script.py`. This script will prompt the user for input then will produce the desired data and plots.
+To use this program, run `pullData_script.py` by navigating to `OCN506_finalproject` and using the command `run driver/pullData_script.py` This script will prompt the user for input then will produce the desired data and plots.
 
 1) Users are prompted (with an in-terminal printout) with the rivers they can pull data from. Each river has a corresponding integer number, which the user inputs into the terminal prompt to make a selection.
 	If users input a different data-type (non-integer), or if users input an interger value outside of the given range, they will be prompted to answer within the stated ranges. Users will have 10 attempts
