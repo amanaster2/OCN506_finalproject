@@ -22,10 +22,12 @@ def get_river(station, date_start, date_end):
 			print('Working on '+sta+' for '+date) #Print some information for user
 
 			#Call API
-			stage_req = requests.get('https://waterservices.usgs.gov/nwis/iv/?format=json&indent=on&sites='
-				+idn+'&startDT='+date_start+'&endDT='+date_end+'&parameterCd=00065')
-			q_req = requests.get('https://waterservices.usgs.gov/nwis/iv/?format=json&indent=on&sites='
-				+idn+'&startDT='+date_start+'&endDT='+date_end+'&parameterCd=00060')
+			stage_req = requests.get('https://waterservices.usgs.gov/nwis/iv/\
+				?format=json&indent=on&sites='+idn+'&startDT='+date_start+
+				'&endDT='+date_end+'&parameterCd=00065')
+			q_req = requests.get('https://waterservices.usgs.gov/nwis/iv/\
+				?format=json&indent=on&sites='+idn+'&startDT='+date_start+
+				'&endDT='+date_end+'&parameterCd=00060')
 
 			#Load API response as JSON
 			d_stage = json.loads(stage_req.text)
@@ -51,7 +53,7 @@ def get_river(station, date_start, date_end):
 	return(station_id, stage, dates_stage, q, dates_q, d_stage, d_q)
 
 #Example function call for one site
-#idn, depth, d_date, q, q_date, d_s, d_q = get_river(['12484500'], '2020-05-27', '2020-05-31')
+# idn, depth, d_date, q, q_date, d_s, d_q = get_river(['12484500'], '2020-05-27', '2020-05-31')
 # json_s = json.dumps(d_s, indent=4)
 # f = open("dict_s.json","w")
 # f.write(json_s)
