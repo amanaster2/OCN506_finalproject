@@ -66,7 +66,7 @@ def get_climate(station, date_start, date_end):
 		#Get date corresponding to max temperature values
 		dates_temp.append([item['date'] for item in max_temp_dict])
 
-	return(station_id, prcp, dates_prcp, max_temp, dates_temp, max_temp_dict)
+	return(station_id, prcp, dates_prcp, max_temp, dates_temp)
 
 
 #Example function call for two sites
