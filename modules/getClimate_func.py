@@ -32,7 +32,7 @@ def get_climate(station, date_start, date_end):
 			try:
 				d = json.loads(r.text)
 			except:
-				print('No data for this time period')
+				print('No climate data for this time period')
 				continue
 
 			#Save list of station IDs for dataframe
@@ -48,7 +48,7 @@ def get_climate(station, date_start, date_end):
 			try:
 				max_temp_dict = [item for item in d['results'] if item['datatype']=='TMAX']
 			except (KeyError):
-				print('There is no rainfall data for the time period specified! Moving to next variable.')
+				print('There is no temperature data for the time period specified! Moving to next variable.')
 				continue
 
 		#Get precipitation values
