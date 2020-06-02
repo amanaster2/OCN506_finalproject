@@ -53,11 +53,8 @@ dfriver.plot(y='height',ax=ax)
 ax1 = ax.twinx()
 
 #Plot second variable
-<<<<<<< Updated upstream
 dfweather.plot(y='precip',ax=ax1, kind='bar')
-=======
 dfweather.plot.bar(y='precip',ax=ax1)
->>>>>>> Stashed changes
 #ax1.set_ylabel('Variable 2', fontsize=14, fontweight='bold')
 #ax1.set_ylim(0, 15)
 ax1.invert_yaxis() #makes the second y-axis inverted
