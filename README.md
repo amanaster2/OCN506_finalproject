@@ -4,7 +4,7 @@ This repository was created for the final project in OCN 506 at the University o
 **Team Members:** Amanda Manaster (leader), Dylan Vecchione, Amy Larsen
 
 ## Purpose
-The goal of this project was to create a program that allows a user to see flow discharge, river stage, temperature, and rainfall for a series of locations in Washington state. The data are pulled via API from the [USGS](https://www.usgs.gov/) (flow discharge, river stage) and [NOAA National Centers for Environmental Information (NCEI)](https://www.ncei.noaa.gov/) (temperature, rainfall). These data are then added to a Pandas data frame, plotted for visualization purposes, and saved for later use.
+The goal of this project was to create a program that allows a user to see flow discharge, river stage, temperature, and rainfall for a series of locations in Washington state. We aim to proivde easy access for people who fish in rivers so they can know the curret state of common rivers and see how past weather has impacted the rivers. The data are pulled via API from the [USGS](https://www.usgs.gov/) (flow discharge, river stage) and [NOAA National Centers for Environmental Information (NCEI)](https://www.ncei.noaa.gov/) (temperature, rainfall). These data are then added to a Pandas data frame, plotted for visualization purposes, and saved for later use.
 
 ## File Structure
 This repository has three main folders: **modules**, **driver**, and **output**.
