@@ -29,15 +29,27 @@ def get_climate(station, date_start, date_end):
 				idn + '&startdate=' + date_start + '&enddate=' + date_end+ '&limit=60', headers={'token':Token})
 
 			#Load API response as JSON
-			d = json.loads(r.text)
+			try:
+				d = json.loads(r.text)
+			except:
+				print('No data for this time period')
+				continue
 
 			#Save list of station IDs for dataframe
 			station_id +=[idn]
 
 			#Get dictionary containing all precipitation results
-			prcp_dict = [item for item in d['results'] if item['datatype']=='PRCP']
+			try:
+				prcp_dict = [item for item in d['results'] if item['datatype']=='PRCP']
+			except (KeyError):
+				print('There is no rainfall data for the time period specified! Moving to next variable.')
+				continue
 			#Get dictionary containing all max temperature results
-			max_temp_dict = [item for item in d['results'] if item['datatype']=='TMAX']
+			try:
+				max_temp_dict = [item for item in d['results'] if item['datatype']=='TMAX']
+			except (KeyError):
+				print('There is no rainfall data for the time period specified! Moving to next variable.')
+				continue
 
 		#Get precipitation values
 		prcp.append([item['value'] for item in prcp_dict])
@@ -52,4 +64,4 @@ def get_climate(station, date_start, date_end):
 
 
 #Example function call for two sites
-# idnW, precip, p_date, temp, t_date, r, d = get_climate(['GHCND:USW00024220'], str(datetime.now()-timedelta(30)), str(datetime.now()))
+#idnW, precip, p_date, temp, t_date = get_climate(['GHCND:USW00024220'], str(datetime.now()-timedelta(5)), str(datetime.now()))
