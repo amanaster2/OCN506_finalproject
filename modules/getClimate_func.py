@@ -32,7 +32,7 @@ def get_climate(station, date_start, date_end):
 			try:
 				d = json.loads(r.text)
 			except:
-				print('No climate data for this time period')
+				print('No climate data for this time period\n')
 				continue
 
 			#Save list of station IDs for dataframe
@@ -42,13 +42,13 @@ def get_climate(station, date_start, date_end):
 			try:
 				prcp_dict = [item for item in d['results'] if item['datatype']=='PRCP']
 			except (KeyError):
-				print('There is no rainfall data for the time period specified! Moving to next variable.')
+				print('There is no rainfall data for the time period specified! Moving to next variable.\n')
 				continue
 			#Get dictionary containing all max temperature results
 			try:
 				max_temp_dict = [item for item in d['results'] if item['datatype']=='TMAX']
 			except (KeyError):
-				print('There is no temperature data for the time period specified! Moving to next variable.')
+				print('There is no temperature data for the time period specified! Moving to next variable.\n')
 				continue
 
 		#Get precipitation values
@@ -64,4 +64,8 @@ def get_climate(station, date_start, date_end):
 
 
 #Example function call for two sites
-#idnW, precip, p_date, temp, t_date = get_climate(['GHCND:USW00024220'], str(datetime.now()-timedelta(5)), str(datetime.now()))
+# idnW, precip, p_date, temp, t_date,d = get_climate(['GHCND:USW00024220'], (datetime.now()-timedelta(25)).strftime("%Y-%m-%d"), (datetime.now()).strftime("%Y-%m-%d"))
+# json = json.dumps(d, indent=4)
+# f = open("dict.json","w")
+# f.write(json)
+# f.close()
