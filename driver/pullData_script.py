@@ -49,11 +49,11 @@ dfriver.plot(y='height',ax=ax)
 ax1 = ax.twinx()
 
 #Plot second variable
-dfweather.bar(y='precip',ax=ax1)
+dfweather.plot(y='precip',ax=ax1, kind='bar')
 #ax1.set_ylabel('Variable 2', fontsize=14, fontweight='bold')
 #ax1.set_ylim(0, 15)
 ax1.invert_yaxis() #makes the second y-axis inverted
 #ax1.grid(False)
 print('\nDone!')
-print('\nTodays flow:' %q[len(q)-1] '\nTodays height:' %depth[len(depth)-1]'\nTodays temperature:'%temp[len(temp)-1]'\nTodays precipitation:'%precip[len(precip)-1])
+#print('\nTodays flow:' %q[len(q)-1] '\nTodays height:' %depth[len(depth)-1]'\nTodays temperature:'%temp[len(temp)-1]'\nTodays precipitation:'%precip[len(precip)-1])
 plt.show() 
