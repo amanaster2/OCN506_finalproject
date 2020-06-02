@@ -64,9 +64,11 @@ else:
 if len(dfriver.flow) > 0 :
 	#make plot 
 	dfriver.plot(y='flow')
+	plt.title('River Flow at %s' %rivname)
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('River Flow (cfs)', fontsize=14, fontweight='bold')
 	plt.tight_layout()
+	#plt.savefig('Flow')
 	print('\nToday\'s flow:',dfriver.flow[len(dfriver.flow)-1],'cfs')
 else: 
 	print('\nNo river flow available')
@@ -76,10 +78,12 @@ else:
 if p_flag==True:
 	#make plot 
 	dfweather.plot.bar(y='precip')
+	plt.title('Precipitation at %s' %rivname)
 	plt.xticks(rotation=0)
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('Preciitation (mm)', fontsize=14, fontweight='bold')
 	plt.tight_layout()
+	#plt.savefig('precip')
 	print('\nMost recent precipitation:',dfweather.precip[len(dfweather.precip)-1],'mm')
 else:
 	print('\nNo precipitation available')
@@ -89,9 +93,11 @@ else:
 if t_flag==True:
 	#make plot 
 	dfweather.plot(y='temp') 
+	plt.title('Temperature at %s' %rivname)
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('Temperature (C)', fontsize=14, fontweight='bold')
 	plt.tight_layout()
+	#plt.savefig('temp')
 	print('\nToday\'s maximum temperature:',dfweather.temp[len(dfweather.temp)-1],'C')
 else: 
 	print('\nNo temperature available')
