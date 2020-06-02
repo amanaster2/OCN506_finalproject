@@ -52,6 +52,15 @@ def get_river(station, date_start, date_end):
 
 #Example function call for one site
 #idn, depth, d_date, q, q_date, d_s, d_q = get_river(['12484500'], '2020-05-27', '2020-05-31')
+# json_s = json.dumps(d_s, indent=4)
+# f = open("dict_s.json","w")
+# f.write(json_s)
+# f.close()
+# json_q = json.dumps(d_q, indent=4)
+# f = open("dict_q.json","w")
+# f.write(json_q)
+# f.close()
+
 
 # plt.figure(1)
 # plt.plot(q_date[0], q[0])
