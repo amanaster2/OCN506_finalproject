@@ -1,9 +1,10 @@
-# do imports first, available to all functions in the module
+"""
+Purpose: Function to create output folder if one doesn't
+already exist.
+"""
 import os, sys, shutil
 import numpy as np
 
-# this bit of magic lets us know where this program lives
-# and so allows us to find the name of the parent directory (pmec)
 shared_pth = os.path.dirname(os.path.realpath(__file__))
 
 def make_dir(dirname, clean=False):
@@ -25,8 +26,8 @@ def get_outdir():
     Find the absolute path to the output directory.
     
     ASSUMES we are working in the main directory,
-    e.g. we are in .../OCN506_finalproject and it will return:
-    ('OCN506_finalproject', '/Users/Amanda/Documents/GitHub/OCN506_finalproject_output')
+    e.g. we are in .../OCN506_finalproject/ and it will return:
+    ('OCN506_finalproject', '/Users/Amanda/Documents/GitHub/OCN506_finalproject/output')
     """
     this_parent = shared_pth.split('/')[-2]
     out_dir = os.path.abspath('../'+this_parent) + '/output/'
