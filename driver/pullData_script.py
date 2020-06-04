@@ -1,23 +1,54 @@
+"""
+Purose: This script calls on the four modules in the modules folder, 
+adds pulled data to two Pandas data frames, plots the data, 
+and saves the data as two .pkl files for later use/analysis.
+"""
+#===========================================
+#Importing the packages
+#===========================================
 
+#Import necessary packages
+import pickle
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 import sys, os
+
+#Import modules made for this project
 sys.path.append(os.path.abspath('modules'))
 import input_func as ipt
 import getClimate_func as climate
 import getRiver_func as river
+import dir_func
 
+#===========================================
+#Calling the modules
+#===========================================
+
+#Create output folders
+this_parent, out_dir = dir_func.get_outdir()
+dir_func.make_dir(out_dir)
+
+#Call the input function
 WCode, RCode, TDelta, rivname = ipt.input_func()
+
+#Define date range
 date_start = (datetime.now()-timedelta(TDelta)).strftime("%Y-%m-%d")
 date_end = (datetime.now()).strftime("%Y-%m-%d")
 
+#Call getClimate_func and getRiver_func
 idnW, precip, p_date, temp, t_date = climate.get_climate([WCode], date_start, date_end)
 idnR, depth, d_date, q, q_date, d_q, d_s = river.get_river([RCode],  date_start, date_end)
+
+#Let user know that the data has been gathered
 print('\nData Loaded\n')
-#plotting the data 
-#load arrays into dataframes 
+
+#===========================================
+#Plotting the data 
+#===========================================
+
+#Create dataframe for river data
 dfriver = pd.DataFrame(index=pd.to_datetime(d_date[0]))
 dfriver.index = dfriver.index.tz_convert('US/Pacific')
 dfriver.index = dfriver.index.tz_convert(None)
@@ -25,12 +56,13 @@ dfriver['height'] = pd.to_numeric(depth[0])
 dfriver['h_date'] = pd.to_datetime(d_date[0])
 dfriver['flow'] = pd.to_numeric(q[0])
 dfriver['f_date'] = pd.to_datetime(q_date[0])
-#dfriver = dfriver.resample('D').mean()
 
+#Set some flags for error handling
 t_flag=False
 p_flag=False
+
+#Create dataframe for climate data
 dfweather =pd.DataFrame(index=pd.to_datetime(p_date[0])) 
-#dfweather.index.tz_convert(None)
 if len(precip) != 0:
 	dfweather['precip'] = pd.to_numeric(precip[0]) if len(precip[0]) == len(dfweather) else np.empty(len(dfweather))
 	p_flag=True
@@ -42,11 +74,10 @@ if len(temp) != 0:
 	t_flag=True
 if len(t_date) != 0:
 	dfweather['t_date'] = pd.to_datetime(t_date[0]) if len(t_date[0]) == len(dfweather) else np.empty(len(dfweather))
-#dfweather = dfweather.resample('D').mean()
 
 plt.close('all')
 
-#plot the river height 
+#Plot the river height 
 if len(dfriver.height) > 0 :
 	#make plot
 	dfriver.plot(y='height') 
@@ -54,13 +85,12 @@ if len(dfriver.height) > 0 :
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('River Height (ft)', fontsize=14, fontweight='bold')
 	plt.tight_layout()
-	#plt.savefig('Height')
+	plt.savefig(fname = out_dir + 'Height_%s.png' %rivname)
 	print('\nToday\'s height:',dfriver.height[len(dfriver.height)-1],'ft')
 else:
 	print('\nNo river height available')
-	
 
-#plot river flow 
+#Plot river flow 
 if len(dfriver.flow) > 0 :
 	#make plot 
 	dfriver.plot(y='flow')
@@ -68,13 +98,12 @@ if len(dfriver.flow) > 0 :
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('River Flow (cfs)', fontsize=14, fontweight='bold')
 	plt.tight_layout()
-	#plt.savefig('Flow')
+	plt.savefig(fname= out_dir + 'Flow_%s.png' %rivname)
 	print('\nToday\'s flow:',dfriver.flow[len(dfriver.flow)-1],'cfs')
 else: 
 	print('\nNo river flow available')
-	
 
-#plot precipitation 
+#Plot precipitation 
 if p_flag==True:
 	#make plot 
 	dfweather.plot.bar(y='precip')
@@ -83,13 +112,12 @@ if p_flag==True:
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('Preciitation (mm)', fontsize=14, fontweight='bold')
 	plt.tight_layout()
-	#plt.savefig('precip')
+	plt.savefig(fname= out_dir+'Precip_%s.png' %rivname)
 	print('\nMost recent precipitation:',dfweather.precip[len(dfweather.precip)-1],'mm')
 else:
 	print('\nNo precipitation available')
-	  
 
-#plot temperature 
+#Plot temperature 
 if t_flag==True:
 	#make plot 
 	dfweather.plot(y='temp') 
@@ -97,32 +125,20 @@ if t_flag==True:
 	plt.xlabel('Date', fontsize=14, fontweight='bold') 
 	plt.ylabel('Temperature (C)', fontsize=14, fontweight='bold')
 	plt.tight_layout()
-	#plt.savefig('temp')
+	plt.savefig(fname= out_dir+'Temp_%s.png' %rivname)
 	print('\nToday\'s maximum temperature:',dfweather.temp[len(dfweather.temp)-1],'C')
 else: 
 	print('\nNo temperature available')
-	  
 
-
-
-
-#Plot first variable
-#fig, ax = plt.subplots(figsize=(13,5))
-#dfriver.plot(y='height',ax=ax)
-#ax.set_xlabel('Date', fontsize=14, fontweight='bold') #note: only need to set xlabel once
-#ax.set_ylabel('Variable 1', fontsize=14, fontweight='bold')
-#ax.set_ylim(0,5)
-#ax.grid(False)
-
-#Create another y-axis with the same x-axis
-#ax1 = ax.twinx()
-
-#Plot second variable
-#dfweather.plot(y='precip',ax=ax1, kind='bar')
-#dfweather.plot.bar(y='precip',ax=ax1)
-#ax1.set_ylabel('Variable 2', fontsize=14, fontweight='bold')
-#ax1.set_ylim(0, 15)
-#ax1.invert_yaxis() #makes the second y-axis inverted
-#ax1.grid(False)
 print('\nDone!')
 plt.show() 
+
+
+#===========================================
+#Saving the data as pkl files
+#===========================================
+out_fn_riv = out_dir + 'dfriver.pkl'
+pickle.dump(dfriver, open(out_fn_riv, 'wb'))
+
+out_fn_clim = out_dir +'dfweather.pkl'
+pickle.dump(dfweather, open(out_fn_clim, 'wb'))
