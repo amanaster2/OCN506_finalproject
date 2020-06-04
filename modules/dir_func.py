@@ -26,8 +26,11 @@ def get_outdir():
     
     ASSUMES we are working in the main directory,
     e.g. we are in .../OCN506_finalproject and it will return:
-    ('OCN506_finalproject', '/Users/pm7/Documents/Classes/2020 Effective Computing/pmec_output/')
+    ('OCN506_finalproject', '/Users/Amanda/Documents/GitHub/OCN506_finalproject_output')
     """
-    this_parent = shared_pth.split('/')[-1]
-    out_dir = os.path.abspath('../../' + this_parent + '_output') + '/'
+    this_parent = shared_pth.split('/')[-2]
+    out_dir = os.path.abspath('../'+this_parent) + '/output/'
     return  this_parent, out_dir
+
+#this_parent, out_dir = get_outdir()
+#make_dir(out_dir)
