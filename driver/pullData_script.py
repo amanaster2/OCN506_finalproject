@@ -8,6 +8,7 @@ sys.path.append(os.path.abspath('modules'))
 import input_func as ipt
 import getClimate_func as climate
 import getRiver_func as river
+import dir_func
 
 WCode, RCode, TDelta, rivname = ipt.input_func()
 date_start = (datetime.now()-timedelta(TDelta)).strftime("%Y-%m-%d")
