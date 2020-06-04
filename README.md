@@ -33,5 +33,5 @@ To use this program, run `pullData_script.py` by navigating to `OCN506_finalproj
 	prompts the user to re-run the program when ready.
 3) Once users have successfully entered both specifications, they will see a confirmation that data is being retrieved. They will then see printed confirmation as each day of river and weather data is 
 	collected. Once finished, a "data retrieval confirmation" will be displayed in-terminal.
-4) Plots will automatically be generated with river and weather data for the selected location and time-period, where data is available, and saved to the output folder within the project's output folder 
+4) Plots will automatically be generated with river and weather data, named and labeled accordingly, for the selected location and time-period, where data is available, and saved to the output folder within the project's output folder 
 	(described above). Additionally, the raw dataframes will be saved as a Pickle file (.pkl) to the output folder. River data is saved as "dfriver.pkl" and Weather data is saved as "dfweather.pkl". 
